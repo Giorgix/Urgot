@@ -1,5 +1,6 @@
 # Urgot email client
-import poplib
+import sys, shelve, getpass, string, os, email
+import smtplib, poplib
 class Connection(object):
 	
     def connection_pop3(self, user, password):
@@ -13,8 +14,12 @@ class Connection(object):
 
 class Check_username(object):
 
+    def ask(self, question):
+        print "\r%s" %question,
+	return sys.stdin.readline().strip()
     
-    def get_user():
+
+    def get_user(self):
         user = ask('Your email address: ')
 	if check_mail_addr_pop(user):
 	    return user
@@ -24,7 +29,7 @@ class Check_username(object):
     
     
     
-    def check_mail_addr_pop(addr):
+    def check_mail_addr_pop(self, addr):
 	alfa_num = compile('([A-Z] * [a-z] * [0-9] *) + @ ([A-Z] * [a-z] * [0-9] *) + . ([A-	    Z] * [a-z] * [0-9] *)')
     	return alfa_num.search(addr)
 
