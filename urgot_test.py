@@ -7,7 +7,7 @@ class connection_pop3Test(unittest.TestCase):
         self.connection = Connection()
     def test_connection_pop3(self):
 
-	self.assertTrue(self.connection.connection_pop3('jorge.delgado@madtec.es', 'DaVinci5260'))
+	self.assertTrue(self.connection.connection_pop3('jorge.delgado@madtec.es', 'password'))
 	self.assertRaises(Exception, self.connection.connection_pop3, 'jorge.delgado@madtec.es', 'abc1234')
 	
 
