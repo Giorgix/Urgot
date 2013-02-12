@@ -9,9 +9,17 @@ class Connection(object):
     def connection_pop3(self, user, password):
         print 'Connecting...'
 	host = 'pop.gmail.com'
-        pop_conn=poplib.POP3_SSL(host)
+        pop_conn = poplib.POP3_SSL(host)
         pop_conn.user(user)
-        pop_conn.pass_(password)
+	try:
+	    pop_conn.pass_(password)
+
+	except Exception as e:
+	    raise e
+
+	finally:
+	    pop_conn.quit()
+
         print pop_conn.getwelcome()
         return pop_conn
 
