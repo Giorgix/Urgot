@@ -22,10 +22,14 @@ class Connection(object):
 
         
 	finally:
-            pop_conn.quit()
+	   pass	
+           # pop_conn.quit()
 
         return pop_conn
-        
+
+    def close_connection_pop3(self, connection):
+
+        connection.quit()
 '''
 class Login(object):
 
@@ -56,7 +60,7 @@ class Login(object):
 	
 	alfa_num = re.compile('([A-Z]*[a-z]*[0-9]*)+@([A-Z]*[a-z]*[0-9]*)+.([A-Z]*[a-z]*[0-9]*)')
 	return alfa_num.search(addr)
-
+'''
 
 class MailActions(object):
 
@@ -67,15 +71,19 @@ class MailActions(object):
 	return msgs_list
 
     def print_mail_list(self, messages):
-	    print 'Inbox: %s' % len(messages)ssertionError: <poplib.POP3_SSL instance at 0xa12d7ac> != '-ERR [AUTH] Username and password not accepted.'
-
+	
+       	print 'Inbox: %s' % len(messages)
 	i=0
 	while i<len(messages): 
 	    print '['+str(i+1)+'] ',messages[i]['subject']
 	    i=i+1
 	
-'''
+
 
 if __name__=='__main__':
    connection = Connection()
-   connection.connection_pop3('pop.gmail.com', 'kk@mierda.es', 'passord')
+   mail_actions = MailActions()
+   conn_pop3 = connection.connection_pop3('vps.webprofesionalhost.net', 'pruebas@madtec.es', 'prueba1ab2')
+   messages = mail_actions.list_mail(conn_pop3)
+   #print messages
+   mail_actions.print_mail_list(messages)
