@@ -13,15 +13,15 @@ class ConnectionPop3Test(unittest.TestCase):
     
     def test_connection_pop3_invalid_username(self):
 		
-	self.assertEqual(self.connection.connection_pop3('vps.webprofesionalhost.net', 'mendrugo@kk.es', 'prueba1ab2'), '-ERR Authentication failed.')
+	self.assertEqual(self.connection.connection_pop3('pop.gmail.com', 'mendrugo@kk.es', 'prueba1ab2'), '-ERR [AUTH] Username and password not accepted.')
     
     def test_connection_pop3_invalid_password(self):
 	
-	self.assertEqual(self.connection.connection_pop3('vps.webprofesionalhost.net', 'pruebas@madtec.es', 'password'), '-ERR Authentication failed.')
+	self.assertEqual(self.connection.connection_pop3('pop.gmail.com', 'pruebas@madtec.es', 'password'), '-ERR [AUTH] Username and password not accepted.')
 
     def test_connection_pop3_valid_data(self):
 
-        self.assertTrue(self.connection.connection_pop3('vps.webprofesionalhost.net', 'pruebas@madtec.es', 'prueba1ab2'))
+        self.assertTrue(self.connection.connection_pop3('pop.gmail.com', 'pruebas@madtec.es', 'prueba1ab2'))
 
 class MailActionsTest(unittest.TestCase):
 
@@ -31,4 +31,4 @@ class MailActionsTest(unittest.TestCase):
 
     def test_empty_mail_list(self):
 
-	self.assertFalse(self.mail_actions.list_mail(self.connection.connection_pop3('vps.webprofesionalhost.net', 'pruebas@madtec.es', 'prueba1ab2')))
+	self.assertTrue(self.mail_actions.list_mail(self.connection.connection_pop3('pop.gmail.com', 'pruebas@madtec.es', 'prueba1ab2')))

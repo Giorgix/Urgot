@@ -83,7 +83,7 @@ class MailActions(object):
 if __name__=='__main__':
    connection = Connection()
    mail_actions = MailActions()
-   conn_pop3 = connection.connection_pop3('vps.webprofesionalhost.net', 'pruebas@madtec.es', 'prueba1ab2')
+   conn_pop3 = connection.connection_pop3('pop.gmail.com', 'pruebas@madtec.es', 'prueba1ab2')
    messages = mail_actions.list_mail(conn_pop3)
-   #print messages
+   print conn_pop3
    mail_actions.print_mail_list(messages)
