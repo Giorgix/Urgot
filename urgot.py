@@ -3,26 +3,30 @@ import sys, shelve, getpass, string, os, email
 import smtplib, poplib
 import re
 from email import parser
+from socket import gaierror
 
 class Connection(object):
 	
-    def connection_pop3(self, user, password):
-        print 'Connecting...'
-	host = 'pop.gmail.com'
-        pop_conn = poplib.POP3_SSL(host)
-        pop_conn.user(user)
+    def connection_pop3(self, host, user, password):
+        
+        
 	try:
+	    
+	    pop_conn = poplib.POP3_SSL(host)
+	    pop_conn.user(user)
 	    pop_conn.pass_(password)
+        except gaierror as e:
+	    return e.message
+	except poplib.error_proto as e:
+	    return e.message
 
-	except Exception as e:
-	    raise e
-
+        
 	finally:
-	    pop_conn.quit()
+            pop_conn.quit()
 
-        print pop_conn.getwelcome()
         return pop_conn
-
+        
+'''
 class Login(object):
 
     def ask(self, question):
@@ -63,20 +67,15 @@ class MailActions(object):
 	return msgs_list
 
     def print_mail_list(self, messages):
-        print 'Inbox: %s' % len(messages)
+	    print 'Inbox: %s' % len(messages)ssertionError: <poplib.POP3_SSL instance at 0xa12d7ac> != '-ERR [AUTH] Username and password not accepted.'
+
 	i=0
 	while i<len(messages): 
 	    print '['+str(i+1)+'] ',messages[i]['subject']
 	    i=i+1
 	
-
+'''
 
 if __name__=='__main__':
    connection = Connection()
-   login = Login()
-   mail_actions = MailActions()
-   user = login.get_user()
-   password = login.get_password()
-   pop3_conn = connection.connection_pop3(user, password)
-   messages = mail_actions.list_mail(pop3_conn)
-   mail_actions.print_mail_list(messages)
+   connection.connection_pop3('pop.gmail.com', 'kk@mierda.es', 'passord')
